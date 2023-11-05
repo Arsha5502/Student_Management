@@ -6,7 +6,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     // Check if email and password match the provided credentials
     if (email === "abcd@gmail.com" && password === "pass123") {
-        window.location.href = '/dashboard.html'
+        window.location.href = '/Student_Management/dashboard.html'
     } else {
         alert("Login unsuccessful. Please check your email and password.");
     }
