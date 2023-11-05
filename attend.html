@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="astyle.css">
+    
+    <title>Attendance</title>
+</head>
+
+<body>
+
+    <div class="menu-container">       
+        <div class="logo-container">
+            <div>
+                <img src="logo1.png" width="40px" height="auto" style="color: #0D7FD1; display: inline-block; margin-right: 10px;" alt="Logo">
+            </div>
+            <a href="dashboard.html">
+
+                <div style="color: #0D7FD1; font-family:Arial, Helvetica, sans-serif; font-weight: 700;">STUD Connect</div>
+            </a>
+        </div>
+        
+
+        <div class="menu-title">Menu</div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="dashbd.png" width="20px" height="auto">
+            </div>
+            <a href="/dashboard.html">
+                <div class="menu-text">Dashboard</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="attend.png" width="20px" height="auto">
+            </div>
+            <a href="attend.html">
+                <div class="menu-text">Attendance</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="result.png" width="20px" height="auto">
+            </div>
+            <a href="mark.html">
+                <div class="menu-text">Result</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+               <img src="notif.png" width="20px" height="auto">
+            </div>
+            <div class="menu-text">Notification</div>
+        </div>
+        <div class="divider"></div>
+        <div class="logout">
+            <div class="logout-icon">
+             
+                <div class="menu-icon-part"></div>
+            </div>
+            <div class="logout-text">Log out</div>
+        </div>
+    </div>
+
+
+<!--Middle Section-->
+    <div class="container">
+        <div class="rectangle-container">Attendance</div>
+        
+        <div class="content-container">
+            <div class="row">
+                <div class="title">Select Branch:</div>
+                <select class="dropdown">
+                    <option value="branch1">Branch 1</option>
+                    <option value="branch2">Branch 2</option>
+                    <option value="branch3">Branch 3</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="title">Select Class:</div>
+                <select class="dropdown">
+                    <option value="class1">Class 1</option>
+                    <option value="class2">Class 2</option>
+                    <option value="class3">Class 3</option>
+                </select>
+            </div>
+            <div class="title">Select Absentees</div>
+            <br><div class="row js-rollno-fill" onclick="onRollnoClick(event)">
+                
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+<!--Rightside-->
+    <div class="custom-container">
+        <div class="custom-label">Select Date:</div>
+        <div class="custom-input-field">
+            <input type="date" class="custom-date" id="current-date" value="2023-12-25">
+            <div class="custom-icon"></div>
+        </div>
+        
+        <div class="custom-select-hour">
+            <div class="custom-hour-placeholder">Select Hour:</div>
+            <div class="custom-hour-options">
+                <div class="custom-hour-option">01</div>
+                <div class="custom-hour-option">02</div>
+                <div class="custom-hour-option">03</div>
+                <div class="custom-hour-option">04</div>
+            </div>
+        </div>
+        
+        <div class="custom-status-buttons">
+            <div class="custom-discard-button">Discard</div>
+            <div class="custom-save-button">Save</div>
+        </div>
+        <div class="custom-student-info">
+            <div class="custom-total-students">Total Students: <b><span id="total-students">0</span></b></div>
+            <br><div class="custom-students-present">Students Present: <b><span id="students-present">0</span></b></div>
+            <br><div class="custom-students-absent">Students Absent: <b><span id="students-absent">0</span></b></div>
+        </div>
+        
+        <div class="custom-export-student-info">
+            <div class="custom-export-label">Export Student info</div>
+            <div class="custom-export-pdf-button">Export as Pdf</div>
+        </div>
+    </div>
+</div>
+<script>
+    // Roll no fill
+    fetch("./dbVariables.json")
+        .then(response =>response.json())
+        .then(data => {
+            let totalStudents = data.attendance.totalStudents;
+            let rollnosTag=[]
+            for (let i = 0; i < totalStudents; i++) {
+                rollnosTag.push(`<div class="item rollno-${i+1}">${i+1}</div>`)
+            }
+            document.querySelector('.js-rollno-fill').innerHTML=rollnosTag.join('')
+            onRollnoChange()
+        })
+        .catch(err => console.log(err))
+
+    
+
+    // Select Absentees Roll no wise
+    function onRollnoClick(e){
+        let status = document.querySelector(`.rollno-${e.target.innerText}`).classList.contains('rollno-absent')
+        if(status){
+            document.querySelector(`.rollno-${e.target.innerText}`).classList.remove('rollno-absent')
+        } else{
+            document.querySelector(`.rollno-${e.target.innerText}`).classList.add('rollno-absent')
+        }
+        onRollnoChange()
+    }
+    function onRollnoChange(){
+        let totalStudents = document.querySelectorAll('.item').length
+        let studentsAbsent = document.querySelectorAll('.rollno-absent').length
+        let studentsPresent = totalStudents - studentsAbsent
+        document.querySelector('#total-students').innerText=totalStudents
+        document.querySelector('#students-present').innerText=studentsPresent
+        document.querySelector('#students-absent').innerText=studentsAbsent
+    }
+    onRollnoChange();
+</script>
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

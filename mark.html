@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="astyle.css">
+    
+    <title>Marks</title>
+</head>
+
+<body>
+
+    <div class="menu-container">       
+        <div class="logo-container">
+            <div>
+                <img src="logo1.png" width="40px" height="auto" style="color: #0D7FD1; display: inline-block; margin-right: 10px;" alt="Logo">
+            </div>
+            <a href="dashboard.html">
+
+                <div style="color: #0D7FD1; font-family:Arial, Helvetica, sans-serif; font-weight: 700;">STUD Connect</div>
+            </a>
+        </div>
+        
+
+        <div class="menu-title">Menu</div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="dashbd.png" width="20px" height="auto">
+            </div>
+            <a href="/dashboard.html">
+                <div class="menu-text">Dashboard</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="attend.png" width="20px" height="auto">
+            </div>
+            <a href="attend.html">
+                <div class="menu-text">Attendance</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="result.png" width="20px" height="auto">
+            </div>
+            <a href="mark.html">
+                <div class="menu-text">Result</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+               <img src="notif.png" width="20px" height="auto">
+            </div>
+            <div class="menu-text">Notification</div>
+        </div>
+        <div class="divider"></div>
+        <div class="logout">
+            <div class="logout-icon">
+             
+                <div class="menu-icon-part"></div>
+            </div>
+            <div class="logout-text">Log out</div>
+        </div>
+    </div>
+
+
+    <div class="container-d">
+        <div class="rectangle-container-d">Mark Sheet</div>
+
+        <div class="content-container-d">
+    
+
+    <div class="table js-fill-table">
+        <div class="head-row">
+            <div class="head-cell">Roll No:</div>
+            <div class="head-cell">Name</div>
+            <div class="head-cell">Internal</div>
+            <div class="head-cell">External</div>
+            <div class="head-cell">Total</div>
+        </div>
+    </div>
+</div>
+</div>
+    
+</body>
+<script>
+    let marks = {};
+    let marksheets = [`
+        <div class="head-row">
+            <div class="head-cell">Roll No:</div>
+            <div class="head-cell">Name</div>
+            <div class="head-cell">Internal</div>
+            <div class="head-cell">External</div>
+            <div class="head-cell">Total</div>
+        </div>
+    `]; 
+    fetch("./dbVariables.json")
+        .then(response =>response.json())
+        .then(data => {
+            for (let i = 0; i < data.marks.length; i++) {
+                marksheets.push(`<div class="rowh js-fill-rowh">
+                    <div class="cell">${data.marks[i].rollNo}</div>
+                    <div class="cell">${data.marks[i].name}</div>
+                    <div class="cell">${data.marks[i].subjects.maths.internal}</div>
+                    <div class="cell">${data.marks[i].subjects.maths.external}</div>
+                    <div class="cell">${data.marks[i].subjects.maths.internal+data.marks[i].subjects.maths.external}</div>
+                </div>`)
+            }
+            document.querySelector('.js-fill-table').innerHTML=marksheets.join('')
+        })
+        .catch(err => console.log(err))
+    
+    console.log(marks);
+</script>
+</html>

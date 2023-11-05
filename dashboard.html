@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="astyle.css">
+    
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+  
+
+    <div class="menu-container">       
+        <div class="logo-container">
+            <div>
+                <img src="logo1.png" width="40px" height="auto" style="color: #0D7FD1; display: inline-block; margin-right: 10px;" alt="Logo">
+            </div>
+            <a href="dashboard.html">
+
+                <div style="color: #0D7FD1; font-family:Arial, Helvetica, sans-serif; font-weight: 700;">STUD Connect</div>
+            </a>
+        </div>
+        
+
+        <div class="menu-title">Menu</div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="dashbd.png" width="20px" height="auto">
+            </div>
+            <a href="/dashboard.html">
+                <div class="menu-text">Dashboard</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="attend.png" width="20px" height="auto">
+            </div>
+            <a href="attend.html">
+                <div class="menu-text">Attendance</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+                <img src="result.png" width="20px" height="auto">
+            </div>
+            <a href="mark.html">
+                <div class="menu-text">Result</div>
+            </a>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">
+               <img src="notif.png" width="20px" height="auto">
+            </div>
+            <div class="menu-text">Notification</div>
+        </div>
+        <div class="divider"></div>
+        <div class="logout">
+            <div class="logout-icon">
+             
+                <div class="menu-icon-part"></div>
+            </div>
+            <div class="logout-text">Log out</div>
+        </div>
+    </div>
+
+
+
+<!--Middle Section-->
+<div class="container-d">
+    <div class="rectangle-container-d">Dashboard</div>
+    
+    <div class="content-container-d">
+        <div class="row">
+            <div class="title">Satistics</div>
+
+        </div>
+            <div class="row">
+                <div class="">
+                    <div class="item-d js-fill-hrs">item</div>
+                    <div class="title-d">Total Hours</div>
+                </div>
+                <div  class="">
+                    <div class="item-d js-fill-studs">item</div>
+                    <div class="title-d">Total Students</div>
+                </div>
+            </div>
+        
+       
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    fetch("./dbVariables.json")
+        .then(response =>response.json())
+        .then(data => {
+            document.querySelector(".js-fill-hrs").innerHTML = data.attendance.totalHours;
+            document.querySelector(".js-fill-studs").innerHTML = data.attendance.totalStudents;
+        })
+        .catch(err => console.log(err))
+</script>
+
+</body>
+
+</html>

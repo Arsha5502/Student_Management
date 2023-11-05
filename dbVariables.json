@@ -1,0 +1,29 @@
+{
+    "attendance":{
+        "totalStudents":30,
+        "absentees":[],
+        "totalHours":30
+    },
+    "marks":[
+        {
+            "rollNo":1,
+            "name":"Rohan",
+            "subjects":{
+                "maths":{
+                    "internal":12,
+                    "external":76
+                }
+            }
+        },
+        {
+            "rollNo":2,
+            "name":"A",
+            "subjects":{
+                "maths":{
+                    "internal":12,
+                    "external":76
+                }
+            }
+        }
+    ]
+}
